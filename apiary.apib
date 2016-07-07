@@ -1,80 +1,102 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
 # Majestic Thai
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Majestic Thai is a simple API allowing patrons to view dishes available at the restaurant.
 
-## Questions Collection [/questions]
+## Dishes Collection [/dishes]
 
-### List All Questions [GET]
+### List All Dishes [GET]
 
 + Response 200 (application/json)
 
+            
         [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
+            {"title": "Yellow Curry", "description": "Mild yellow curry, containing rich flavors of curry powder, coconut milk, potatoes, onions and carrots.", "price": "$10.50"},
+            {"title": "Pad Thai", "description": "One of the most famous Thai rice noodles dish cooked with egg, bean spouts, tofu and sprinkled with ground peanut.", "price": "$10.50"},
+            {"title": "Orange Chicken", "description": "Deep fried chicken sauteed in a tangy orange sauce.", "price": "$10.50"},
+            {"title": "Duck Basil", "description": "Sliced boneless roasted duck, sauteed with bell peppers, green beans, onions and basil leaves, in a spicy homemade sauce.", "price": "$16.50"},
+            {"title": "Fresh Spring Rolls (2 pcs.)", "description": "Spring roll sheets freshly wrapped with back tofu, carrots, lettuce, cucumbers, mint basil, and crystal thread noodles. They are served with peanut sauce.", "price": "$6.50"},
+            {"title": "Rad Na", "description": "Stir fried rice noodle mixed black bean sauce, with choice of meat, broccoli, or Chinese broccoli, and homemade gravy sauce.", "price": "$10.50"},
+            {"title": "Chow Mein", "description": "Stir fried with yellow rounded noodles with vegetables in home made sauce.", "price": "$10.50"},
+            {"title": "Deep Fried Whole Fish", "description": "Deep fried whole fish (Golden Pompano) with your choice of spicy basil, three flavors, ginger or panag.", "price": "$16.50"},
+            {"title": "Tom Kha Soup - Bowl", "description": "Coconut soup with your choice of chicken, tofu, vegetable, or shrimp for an additional charge. Served with mushrooms, onions, lime leaves, galangal and lime juice", "price": "$6.50"},
+            {"title": "Prink-Khing", "description": "A special chili paste sauteed with green beans, bell peppers and Thai basil leaves.", "price": "$10.50"}
+
         ]
 
-### Create a New Question [POST]
+## Dish [/dishes/{dish_id}]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
++ Parameters
+    + dish_id (number) - ID of the Dish in the form of an integer
 
-+ Request (application/json)
+### View a Dish's Detail [GET]
+
++ Response 200 (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "title": "Yellow Curry", 
+            "description": "Mild yellow curry, containing rich flavors of curry powder, coconut milk, potatoes, onions and carrots.", 
+            "price": "$10.50"
         }
+            
+            
+            
+        
+## Order Collection [/orders]
 
-+ Response 201 (application/json)
+### List All Orders [GET]
 
-    + Headers
++ Response 200 (application/json)
 
-            Location: /questions/2
+            
+        [
+            {"username": "Dan",
+             "createdAt": "July 6, 2016, 12:15 p.m.",
+             "total": "$27.50",
+             "items":[
+                     {"title": "Yellow Curry", "price": "$10.50"},
+                     {"title": "Pad Thai", "price": "$10.50"},
+                     {"title": "Fresh Spring Rolls (2 pcs.)", "price": "$6.50"}
+                     ]
+            },
+            {"username": "Andy",
+             "createdAt": "July 3, 2016, 6:35 p.m.",
+             "total": "$37.50",
+             "items":[
+                     {"title": "Orange Chicken", "price": "$10.50"},
+                     {"title": "Duck Basil", "price": "$16.50"},
+                     {"title": "Rad Na", "price": "$10.50"}
+                     ]
+            },
+            {"username": "Rob",
+             "createdAt": "July 5, 2016, 1:45 p.m.",
+             "total": "$44.00",
+             "items":[
+                     {"title": "Chow Mein", "price": "$10.50"},
+                     {"title": "Deep Fried Whole Fish", "price": "$16.50"},
+                     {"title": "Tom Kha Soup - Bowl", "price": "$6.50"},
+                     {"title": "Prink-Khing", "price": "$10.50"}
+                     ]
+            }
 
-    + Body
+        ]
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+## Order [/orders/{order_id}]
+
++ Parameters
+    + order_id (number) - ID of the Order in the form of an integer
+
+### View an Order's Detail [GET]
+
++ Response 200 (application/json)
+
+            {"username": "Dan",
+             "createdAt": "July 6, 2016, 12:15 p.m.",
+             "total": "$27.50",
+             "items":[
+                     {"title": "Yellow Curry", "price": "$10.50"},
+                     {"title": "Pad Thai", "price": "$10.50"},
+                     {"title": "Fresh Spring Rolls (2 pcs.)", "price": "$6.50"}
+                     ]
             }
